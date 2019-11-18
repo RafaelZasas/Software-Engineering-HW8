@@ -4,7 +4,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class ObserverWindow implements Observer {
+public class ObserverWindow  {
 
 	private JLabel label;
 
@@ -17,12 +17,17 @@ public class ObserverWindow implements Observer {
 		frame.setSize(300, 150);
 		frame.setLocation(200, 200);
 		frame.setVisible(true);
+
+		// Make an instance of the bean (an observable), and
+		// register a property change listener (observer) with the bean
+		message bean = new message();
+		bean.addPropertyChangeListener(e ->
+				label.setText((String) e.getNewValue())
+		);
+
+		// Open the second window
+		new ControllerWindow(bean);
 	}
 
-	// The Observer interface requires the implementation of update() abstract method
-	public void update(Observable o, Object data) {
-		//Display the number of taps that occur on the observed window.
-		label.setText((String) data);
-	}
 
 }

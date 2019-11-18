@@ -8,15 +8,13 @@ public class ControllerWindow {
 	private int nTaps;
 	private JButton tapButton;
 	private JFrame subjectFrame;
-	private ObservableSubject observableSubject;
+	private message bean;
 
-	ControllerWindow(ObserverWindow observerWindow) {
+	ControllerWindow(message bean) {
+
+		this.bean=bean;
 		//Initialize the action that will be observed.
 		nTaps = 0;
-
-		// Create the ObservableSubject and add an Observer (observerWindow)
-		observableSubject = new ObservableSubject();
-		observableSubject.addObserver(observerWindow);
 
 		// Build the window frame for the observed subject.
 		buildWindowFrame();
@@ -37,8 +35,8 @@ public class ControllerWindow {
 	private void registerTapObservedAction() {
 		tapButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String data = "   Subject was tapped: " + ++nTaps;
-				observableSubject.changeData(data);
+				String data = "   Subject was tapped: " + ++nTaps;  // ++ntaps increments taps
+				bean.setMessage(data);
 			}
 		});
 	}
